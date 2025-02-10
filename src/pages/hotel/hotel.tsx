@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Hotel } from "../../types/hotel.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faSync } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faSync, faStar } from "@fortawesome/free-solid-svg-icons";
 import Map from "../../components/map/map";
 import HotelErrorBoundary from "./error-boundry";
 
@@ -40,6 +40,42 @@ const HotelPage: React.FC = () => {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
 
+  // Static Facilities Data
+  const facilities = [
+    { name: "24/7 Service", icon: "🏨" },
+    { name: "Restaurant", icon: "🍽️" },
+    { name: "Free WiFi", icon: "📶" },
+    { name: "Conference Hall", icon: "🏢" },
+    { name: "Coffee Shop", icon: "☕" },
+    { name: "ATM", icon: "🏧" },
+    { name: "Prayer Room", icon: "🕌" },
+    { name: "Taxi Service", icon: "🚖" },
+    { name: "Elevator", icon: "🛗" },
+    { name: "Fire Alarm", icon: "🚨" },
+  ];
+
+  // Static User Reviews
+  const reviews = [
+    {
+      id: 1,
+      user: "John Doe",
+      rating: 5,
+      comment: "Great hotel with amazing service!",
+    },
+    {
+      id: 2,
+      user: "Emily Smith",
+      rating: 4,
+      comment: "Loved the breakfast and the view from my room!",
+    },
+    {
+      id: 3,
+      user: "Michael Brown",
+      rating: 3,
+      comment: "Good place, but the WiFi was slow.",
+    },
+  ];
+
   return (
     <HotelErrorBoundary>
       <div className="w-full h-full flex flex-wrap p-2">
@@ -49,7 +85,7 @@ const HotelPage: React.FC = () => {
               <div className="self-center">
                 <Link
                   to="/hotels"
-                  className="p-2 rounded-full hover:bg-gray-200 flex items-center"
+                  className="p-2 rounded-full hover:bg-gray-200 flex items-center cursor-pointer"
                 >
                   <FontAwesomeIcon
                     icon={faArrowLeft}
@@ -58,7 +94,7 @@ const HotelPage: React.FC = () => {
                 </Link>
               </div>
               <h1 className="self-center ps-2 text-xl font-semibold">
-                {hotel.name}
+                Hotel Page
               </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
@@ -71,7 +107,8 @@ const HotelPage: React.FC = () => {
             </div>
             <hr />
           </section>
-          <section className="grow p-2">
+
+          <section className="grow p-2 overflow-auto">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
               <h1 className="text-3xl font-bold">{hotel.name}</h1>
               <p className="text-gray-700 mt-2">{hotel.description}</p>
@@ -83,9 +120,53 @@ const HotelPage: React.FC = () => {
                 Price per Night: ${hotel.pricePerNight}
               </p>
 
-              <div className="lg:flex">
+              {/* Facilities & Features Section */}
+              <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
+                <h2 className="text-xl font-semibold mb-3">
+                  Facilities & Features
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {facilities.map((facility, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center bg-white p-2 rounded-md shadow-sm"
+                    >
+                      <span className="text-xl mr-2">{facility.icon}</span>
+                      <span className="text-gray-700">{facility.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <div className="lg:flex mt-6">
                 <Map hotels={[hotel]} />
               </div>
+
+              <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
+                <h2 className="text-xl font-semibold mb-3">User Reviews</h2>
+                <div className="space-y-4">
+                  {reviews.map((review) => (
+                    <div
+                      key={review.id}
+                      className="p-4 bg-white rounded-md shadow-sm border"
+                    >
+                      <div className="flex items-center">
+                        <h3 className="font-semibold text-gray-800">
+                          {review.user}
+                        </h3>
+                        <div className="ml-2 text-yellow-500 flex">
+                          {Array(review.rating)
+                            .fill(0)
+                            .map((_, i) => (
+                              <FontAwesomeIcon key={i} icon={faStar} />
+                            ))}
+                        </div>
+                      </div>
+                      <p className="text-gray-700 mt-1">{review.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
               <Link
                 to="/hotels"
