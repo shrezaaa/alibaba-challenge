@@ -26,7 +26,7 @@ const getData = () => {
   // Fetch data logic here
 };
 
-cconst Hotels: React.FC = () => {
+const Hotels: React.FC = () => {
     return (
       <div className="w-full h-full flex flex-wrap p-2">
         <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col">
@@ -40,7 +40,7 @@ cconst Hotels: React.FC = () => {
                   onClick={getData}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                 >
-                  <RefreshIcon />
+                  {/* <RefreshIcon /> */}
                 </button>
               </div>
             </div>
