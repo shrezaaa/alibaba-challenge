@@ -3,10 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { Hotel } from "../../types/hotel.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSync } from "@fortawesome/free-solid-svg-icons";
+import Map from "../../components/map/map";
 
 const HotelPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [hotel, setHotel] = useState<Hotel | null>(null);
+  const [centerLocation, setCenterLocation] = useState<{
+    lat: number;
+    long: number;
+  }>();
 
   const fetchHotel = async () => {
     try {
@@ -16,6 +21,10 @@ const HotelPage: React.FC = () => {
       }
       const data = await response.json();
       setHotel(data);
+      const centerLocation = calculateCenter([hotel!.location]);
+      console.log(centerLocation);
+      
+      setCenterLocation(centerLocation);
     } catch (error) {
       console.error("Error fetching hotel:", error);
     }
@@ -37,15 +46,16 @@ const HotelPage: React.FC = () => {
             <div className="self-center ps-2 text-xl font-semibold">
               {hotel.name}
             </div>
+            <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
+              <button
+                onClick={fetchHotel}
+                className="p-2 rounded-full hover:bg-gray-200 flex items-center"
+              >
+                <FontAwesomeIcon icon={faSync} className="text-gray-700" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
-            <button
-              onClick={fetchHotel}
-              className="p-2 rounded-full hover:bg-gray-200 flex items-center"
-            >
-              <FontAwesomeIcon icon={faSync} className="text-gray-700" />
-            </button>
-          </div>
+          <hr />
         </section>
         <section className="grow p-2">
           <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -58,6 +68,15 @@ const HotelPage: React.FC = () => {
             <p className="text-green-600 font-semibold mt-2">
               Price per Night: ${hotel.pricePerNight}
             </p>
+
+            <div className=" lg:flex">
+              <Map
+                position={[hotel.location.lat, hotel.location.long]}
+                center={[centerLocation!.lat, centerLocation!.long]}
+                showMarker
+              />
+            </div>
+
             <Link
               to="/hotels"
               className="text-blue-600 mt-4 inline-flex items-center hover:underline hover:font-medium"
