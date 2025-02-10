@@ -30,7 +30,7 @@ const HotelsList: React.FC = () => {
 
   return (
     <div className="w-full h-full flex flex-wrap p-2">
-      <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col">
+      <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col overflow-auto">
         <section className="w-full p-1">
           <div className="flex w-full justify-between min-h-10">
             <div className="self-center ps-2 text-xl font-semibold">
@@ -50,7 +50,7 @@ const HotelsList: React.FC = () => {
         </section>
 
         {/* Content Section */}
-        <section className="grow p-2">
+        <section className="grow p-2 overflow-auto">
           <div>
             <div className="flex items-center gap-x-2">
               <h1 className="text-2xl font-bold">Filters: </h1>
