@@ -4,28 +4,33 @@ import { Hotel } from "../../types/hotel.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSync } from "@fortawesome/free-solid-svg-icons";
 import Map from "../../components/map/map";
+import { calculateCenter } from "../../utils/calculate-center-location";
+import HotelErrorBoundary from "./error-boundry";
 
-const HotelPage: React.FC = () => {
+const HotelSection: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [hotel, setHotel] = useState<Hotel | null>(null);
   const [centerLocation, setCenterLocation] = useState<{
     lat: number;
     long: number;
-  }>();
+  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchHotel = async () => {
+    setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/hotels/${id}`);
+      const response = await fetch(
+        `http://localhost:5000/hotels/${Number(id)}`
+      );
       if (!response.ok) {
         throw new Error("Hotel not found");
       }
       const data = await response.json();
       setHotel(data);
-      const centerLocation = calculateCenter([hotel!.location]);
-      console.log(centerLocation);
-      
-      setCenterLocation(centerLocation);
+      const center = calculateCenter([data.location]);
+      setCenterLocation(center);
     } catch (error) {
+      setError("Hotel not found. Please check the ID or go back.");
       console.error("Error fetching hotel:", error);
     }
   };
@@ -33,6 +38,10 @@ const HotelPage: React.FC = () => {
   useEffect(() => {
     fetchHotel();
   }, [id]);
+
+  if (error) {
+    throw new Error(error);
+  }
 
   if (!hotel) {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
@@ -43,6 +52,14 @@ const HotelPage: React.FC = () => {
       <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col">
         <section className="w-full p-1">
           <div className="flex w-full justify-between min-h-10">
+            <div className="self-center">
+              <Link
+                to="/hotels"
+                className="p-2 rounded-full hover:bg-gray-200 flex items-center"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} className="text-gray-700" />
+              </Link>
+            </div>
             <div className="self-center ps-2 text-xl font-semibold">
               {hotel.name}
             </div>
@@ -69,12 +86,14 @@ const HotelPage: React.FC = () => {
               Price per Night: ${hotel.pricePerNight}
             </p>
 
-            <div className=" lg:flex">
-              <Map
-                position={[hotel.location.lat, hotel.location.long]}
-                center={[centerLocation!.lat, centerLocation!.long]}
-                showMarker
-              />
+            <div className="lg:flex">
+              {centerLocation && (
+                <Map
+                  position={[hotel.location.lat, hotel.location.long]}
+                  center={[centerLocation.lat, centerLocation.long]}
+                  showMarker
+                />
+              )}
             </div>
 
             <Link
@@ -93,5 +112,11 @@ const HotelPage: React.FC = () => {
     </div>
   );
 };
+
+const HotelPage = () => (
+  <HotelErrorBoundary>
+    <HotelSection />
+  </HotelErrorBoundary>
+);
 
 export default HotelPage;

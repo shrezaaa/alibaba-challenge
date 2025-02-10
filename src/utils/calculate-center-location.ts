@@ -1,6 +1,6 @@
 type LatLng = { lat: number; long: number };
 
-const calculateCenter = (points: LatLng[]): LatLng => {
+export function calculateCenter(points: LatLng[]): LatLng {
   if (points.length === 0) {
     throw new Error("No points provided to calculate the center.");
   }
@@ -19,4 +19,4 @@ const calculateCenter = (points: LatLng[]): LatLng => {
     lat: total.lat / points.length,
     long: total.long / points.length,
   };
-};
+}
