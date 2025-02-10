@@ -4,16 +4,11 @@ import { Hotel } from "../../types/hotel.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSync } from "@fortawesome/free-solid-svg-icons";
 import Map from "../../components/map/map";
-import { calculateCenter } from "../../utils/calculate-center-location";
 import HotelErrorBoundary from "./error-boundry";
 
 const HotelSection: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [hotel, setHotel] = useState<Hotel | null>(null);
-  const [centerLocation, setCenterLocation] = useState<{
-    lat: number;
-    long: number;
-  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchHotel = async () => {
@@ -27,8 +22,6 @@ const HotelSection: React.FC = () => {
       }
       const data = await response.json();
       setHotel(data);
-      const center = calculateCenter([data.location]);
-      setCenterLocation(center);
     } catch (error) {
       setError("Hotel not found. Please check the ID or go back.");
       console.error("Error fetching hotel:", error);
@@ -87,13 +80,7 @@ const HotelSection: React.FC = () => {
             </p>
 
             <div className="lg:flex">
-              {centerLocation && (
-                <Map
-                  position={[hotel.location.lat, hotel.location.long]}
-                  center={[centerLocation.lat, centerLocation.long]}
-                  showMarker
-                />
-              )}
+              <Map hotels={[hotel]} />
             </div>
 
             <Link
