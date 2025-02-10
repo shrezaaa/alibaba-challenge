@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { Hotel } from "../../types/hotel.model";
@@ -36,7 +37,6 @@ const HotelsList: React.FC = () => {
               Hotels List
             </div>
 
-            {/* Refresh Button */}
             <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
               <button
                 onClick={fetchHotels}
@@ -70,17 +70,19 @@ const HotelsList: React.FC = () => {
                 filteredHotels.map((hotel) => (
                   <li
                     key={hotel.id}
-                    className="p-4 border rounded-lg shadow-sm bg-white"
+                    className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
                   >
-                    <h2 className="text-xl font-bold">{hotel.name}</h2>
-                    <p className="text-gray-700">{hotel.description}</p>
-                    <p className="text-gray-500">
-                      Location: ({hotel.location.lat}, {hotel.location.long})
-                    </p>
-                    <p className="text-yellow-500">⭐ {hotel.stars} Stars</p>
-                    <p className="text-green-600 font-semibold">
-                      Price per Night: ${hotel.pricePerNight}
-                    </p>
+                    <Link to={`/hotels/${hotel.id}`} className="block">
+                      <h2 className="text-xl font-bold">{hotel.name}</h2>
+                      <p className="text-gray-700">{hotel.description}</p>
+                      <p className="text-gray-500">
+                        Location: ({hotel.location.lat}, {hotel.location.long})
+                      </p>
+                      <p className="text-yellow-500">⭐ {hotel.stars} Stars</p>
+                      <p className="text-green-600 font-semibold">
+                        Price per Night: ${hotel.pricePerNight}
+                      </p>
+                    </Link>
                   </li>
                 ))
               ) : (

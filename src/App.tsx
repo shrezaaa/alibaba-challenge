@@ -4,6 +4,7 @@ import Layout from "./components/layout/layout";
 
 const Home = lazy(() => import("./pages/home/home"));
 const Hotels = lazy(() => import("./pages/hotels-list/hotels-list"));
+const Hotel = lazy(() => import("./pages/hotel/hotel"));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="hotels" element={<Hotels />} />
+            <Route path="hotels/:id" element={<Hotel />} />
           </Route>
         </Routes>
       </Suspense>
