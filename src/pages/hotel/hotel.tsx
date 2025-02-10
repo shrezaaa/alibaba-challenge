@@ -57,9 +57,9 @@ const HotelPage: React.FC = () => {
                   />
                 </Link>
               </div>
-              <div className="self-center ps-2 text-xl font-semibold">
+              <h1 className="self-center ps-2 text-xl font-semibold">
                 {hotel.name}
-              </div>
+              </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
                   onClick={fetchHotel}
