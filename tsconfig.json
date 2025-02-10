@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./src"],
+  "include": ["./src", "src/public/service-worker.ts"],
   "files": ["./vitest.setup.ts"]
 }
