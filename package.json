@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "npx json-server --watch db.json --port 5000",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest"
