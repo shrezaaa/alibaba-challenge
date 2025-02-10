@@ -3,7 +3,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-import { LatLngExpression, divIcon, LatLngBounds } from "leaflet";
+import { divIcon, LatLngBounds } from "leaflet";
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
@@ -37,19 +37,16 @@ const locationIconMarker = (hotelName: string) => {
   });
 };
 
-// Component to handle map bounds and zoom
 const MapBounds = ({ hotels }: { hotels: Hotel[] }) => {
   const map = useMap();
 
   useEffect(() => {
     if (hotels.length > 0) {
-      // Create a LatLngBounds object to fit all markers
       const bounds = new LatLngBounds(
         hotels.map((hotel) => [hotel.location.lat, hotel.location.long])
       );
 
-      // Fit the map to the bounds
-      map.fitBounds(bounds, { padding: [50, 50] }); // Add padding for better visibility
+      map.fitBounds(bounds, { padding: [50, 50] });
     }
   }, [hotels, map]);
 
@@ -71,10 +68,10 @@ const Map = ({ hotels, height = "400px", width = "100%" }: MapProps) => {
         <Marker
           key={hotel.id}
           position={[hotel.location.lat, hotel.location.long]}
-          icon={locationIconMarker(hotel.name)} // Pass hotel name
+          icon={locationIconMarker(hotel.name)}
         />
       ))}
-      <MapBounds hotels={hotels} /> {/* Add MapBounds component */}
+      <MapBounds hotels={hotels} />
     </MapContainer>
   );
 };

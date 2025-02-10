@@ -2,9 +2,9 @@ import React from "react";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="sticky top-0 bg-white h-14 w-full z-50">
+    <nav className="sticky top-0 bg-white h-14 w-full z-50 border-b">
       <div className="flex h-full justify-end items-center">
-        <div className="ps-2">Demo App</div>
+        <div className="ps-2">Alibaba Challenge</div>
 
         <div className="mr-auto"></div>
 

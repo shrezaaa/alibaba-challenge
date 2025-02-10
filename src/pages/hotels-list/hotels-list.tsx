@@ -20,7 +20,7 @@ const HotelsList: React.FC = () => {
       setHotels(data);
     } catch (error) {
       console.error("Error fetching hotels:", error);
-      throw error; // This will be caught by the error boundary
+      throw error; // Caught by the error boundary
     }
   };
 
@@ -36,84 +36,70 @@ const HotelsList: React.FC = () => {
 
   return (
     <HotelsErrorBoundary>
-      <div className="w-full h-full flex flex-wrap p-2" role="main">
-        <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col overflow-auto">
-          <header className="w-full p-1" role="banner">
-            <div className="flex w-full justify-between min-h-10">
-              <h1 className="self-center ps-2 text-xl font-semibold">
-                Hotels List
-              </h1>
-              <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
-                <button
-                  onClick={fetchHotels}
-                  className="p-2 rounded-full hover:bg-gray-200 flex items-center focus:ring-2 focus:ring-blue-500"
-                  aria-label="Refresh Hotels"
-                >
-                  <FontAwesomeIcon icon={faSync} className="text-gray-700" />
-                </button>
-              </div>
+      <div className="w-full h-full flex" role="main">
+        <div className="w-1/3 h-full flex flex-col bg-white shadow-lg">
+          <header className="p-4 border-b " role="banner">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-semibold">Hotels List</h1>
+              <button
+                onClick={fetchHotels}
+                className="p-2 rounded-full hover:bg-gray-200 flex items-center focus:ring-2 focus:ring-blue-500"
+                aria-label="Refresh Hotels"
+              >
+                <FontAwesomeIcon icon={faSync} className="text-gray-700" />
+              </button>
             </div>
-            <hr />
+            <div className="mt-2">
+              <input
+                type="text"
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Search hotels..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search Hotels"
+              />
+            </div>
           </header>
 
-          <main className="grow p-2 overflow-auto" role="main">
-            <section>
-              <div className="flex items-center gap-x-2">
-                <h3 className="text-lg font-medium">Search Hotels</h3>
-                <input
-                  type="text"
-                  className="px-4 py-2 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Search hotels..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  aria-label="Search Hotels"
-                />
-              </div>
-              <hr className="my-2" />
-              {filteredHotels.length > 0 ? (
-                <>
-                  <div className="lg:flex">
-                    <Map hotels={filteredHotels} />
-                  </div>
-                  <hr className="my-2" />
-                  <ul className="space-y-4">
-                    {filteredHotels.map((hotel) => (
-                      <li
-                        key={hotel.id}
-                        className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
-                        role="article"
-                      >
-                        <Link
-                          to={`/hotels/${hotel.id}`}
-                          className="block focus:ring-2 focus:ring-blue-500"
-                          aria-label={`View details of ${hotel.name}`}
-                        >
-                          <article>
-                            <h2 className="text-xl font-bold">{hotel.name}</h2>
-                            <p className="text-gray-700">{hotel.description}</p>
-                            <p className="text-gray-500">
-                              Location: ({hotel.location.lat},{" "}
-                              {hotel.location.long})
-                            </p>
-                            <p className="text-yellow-500">
-                              ⭐ {hotel.stars} Stars
-                            </p>
-                            <p className="text-green-600 font-semibold">
-                              Price per Night: ${hotel.pricePerNight}
-                            </p>
-                          </article>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : (
-                <p className="p-4 text-center text-gray-500">
-                  No hotels found.
-                </p>
-              )}
-            </section>
+          <main className="grow overflow-auto p-4 " role="main">
+            {filteredHotels.length > 0 ? (
+              <ul className="space-y-4">
+                {filteredHotels.map((hotel) => (
+                  <li
+                    key={hotel.id}
+                    className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
+                    role="article"
+                  >
+                    <Link
+                      to={`/hotels/${hotel.id}`}
+                      className="block focus:ring-2 focus:ring-blue-500"
+                      aria-label={`View details of ${hotel.name}`}
+                    >
+                      <article>
+                        <h2 className="text-xl font-bold">{hotel.name}</h2>
+                        <p className="text-gray-700">{hotel.description}</p>
+                        <p className="text-gray-500">
+                          📍 {hotel.location.lat}, {hotel.location.long}
+                        </p>
+                        <p className="text-yellow-500">
+                          ⭐ {hotel.stars} Stars
+                        </p>
+                        <p className="text-green-600 font-semibold">
+                          💰 ${hotel.pricePerNight} / Night
+                        </p>
+                      </article>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center text-gray-500">No hotels found.</p>
+            )}
           </main>
+        </div>
+
+        <div className="w-2/3 h-full">
+          <Map hotels={filteredHotels} height="100%" width="100%" />
         </div>
       </div>
     </HotelsErrorBoundary>
