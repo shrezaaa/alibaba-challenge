@@ -1,5 +1,7 @@
 import React from "react";
 import { Hotel } from "../../types/hotel.model";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 const sampleHotels: Hotel[] = [
   {
@@ -40,7 +42,7 @@ const Hotels: React.FC = () => {
                   onClick={getData}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                 >
-                  {/* <RefreshIcon /> */}
+                <FontAwesomeIcon icon={faSync} className="text-gray-700" />
                 </button>
               </div>
             </div>
