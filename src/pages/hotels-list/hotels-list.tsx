@@ -59,7 +59,7 @@ const HotelsList: React.FC = () => {
           <main className="grow p-2 overflow-auto" role="main">
             <section>
               <div className="flex items-center gap-x-2">
-                <h2 className="text-2xl font-bold">Search Hotels</h2>
+                <h3 className="text-lg font-medium">Search Hotels</h3>
                 <input
                   type="text"
                   className="px-4 py-2 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -70,53 +70,47 @@ const HotelsList: React.FC = () => {
                 />
               </div>
               <hr className="my-2" />
-              {hotels && (
+              {filteredHotels.length > 0 ? (
                 <>
                   <div className="lg:flex">
-                    <Map hotels={hotels} />
+                    <Map hotels={filteredHotels} />
                   </div>
                   <hr className="my-2" />
                   <ul className="space-y-4">
-                    {filteredHotels.length > 0 ? (
-                      filteredHotels.map((hotel) => (
-                        <li
-                          key={hotel.id}
-                          className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
-                          role="article"
+                    {filteredHotels.map((hotel) => (
+                      <li
+                        key={hotel.id}
+                        className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
+                        role="article"
+                      >
+                        <Link
+                          to={`/hotels/${hotel.id}`}
+                          className="block focus:ring-2 focus:ring-blue-500"
+                          aria-label={`View details of ${hotel.name}`}
                         >
-                          <Link
-                            to={`/hotels/${hotel.id}`}
-                            className="block focus:ring-2 focus:ring-blue-500"
-                            aria-label={`View details of ${hotel.name}`}
-                          >
-                            <article>
-                              <h2 className="text-xl font-bold">
-                                {hotel.name}
-                              </h2>
-                              <p className="text-gray-700">
-                                {hotel.description}
-                              </p>
-                              <p className="text-gray-500">
-                                Location: ({hotel.location.lat},{" "}
-                                {hotel.location.long})
-                              </p>
-                              <p className="text-yellow-500">
-                                ⭐ {hotel.stars} Stars
-                              </p>
-                              <p className="text-green-600 font-semibold">
-                                Price per Night: ${hotel.pricePerNight}
-                              </p>
-                            </article>
-                          </Link>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="p-4 text-center text-gray-500">
-                        No hotels found.
+                          <article>
+                            <h2 className="text-xl font-bold">{hotel.name}</h2>
+                            <p className="text-gray-700">{hotel.description}</p>
+                            <p className="text-gray-500">
+                              Location: ({hotel.location.lat},{" "}
+                              {hotel.location.long})
+                            </p>
+                            <p className="text-yellow-500">
+                              ⭐ {hotel.stars} Stars
+                            </p>
+                            <p className="text-green-600 font-semibold">
+                              Price per Night: ${hotel.pricePerNight}
+                            </p>
+                          </article>
+                        </Link>
                       </li>
-                    )}
+                    ))}
                   </ul>
                 </>
+              ) : (
+                <p className="p-4 text-center text-gray-500">
+                  No hotels found.
+                </p>
               )}
             </section>
           </main>
