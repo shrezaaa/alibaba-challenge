@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { Hotel } from "../../types/hotel.model";
 import Map from "../../components/map/map";
+import HotelsErrorBoundary from "./errour-boundry";
 
 const HotelsList: React.FC = () => {
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -12,10 +13,14 @@ const HotelsList: React.FC = () => {
   const fetchHotels = async () => {
     try {
       const response = await fetch("http://localhost:5000/hotels");
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
       const data = await response.json();
       setHotels(data);
     } catch (error) {
       console.error("Error fetching hotels:", error);
+      throw error; // This will be caught by the error boundary
     }
   };
 
@@ -30,7 +35,7 @@ const HotelsList: React.FC = () => {
   );
 
   return (
-    <>
+    <HotelsErrorBoundary>
       <div className="w-full h-full flex flex-wrap p-2" role="main">
         <div className="w-full h-full bg-white bg-gradient-to-r rounded-sm shadow-md flex flex-col overflow-auto">
           <header className="w-full p-1" role="banner">
@@ -65,54 +70,59 @@ const HotelsList: React.FC = () => {
                 />
               </div>
               <hr className="my-2" />
-                {hotels && (
+              {hotels && (
                 <>
                   <div className="lg:flex">
-                  <Map hotels={hotels} />
+                    <Map hotels={hotels} />
                   </div>
-                  <hr className="my-2"></hr>
+                  <hr className="my-2" />
                   <ul className="space-y-4">
-                  {filteredHotels.length > 0 ? (
-                    filteredHotels.map((hotel) => (
-                    <li
-                      key={hotel.id}
-                      className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
-                      role="article"
-                    >
-                      <Link
-                      to={`/hotels/${hotel.id}`}
-                      className="block focus:ring-2 focus:ring-blue-500"
-                      aria-label={`View details of ${hotel.name}`}
-                      >
-                      <article>
-                        <h2 className="text-xl font-bold">{hotel.name}</h2>
-                        <p className="text-gray-700">{hotel.description}</p>
-                        <p className="text-gray-500">
-                        Location: ({hotel.location.lat}, {hotel.location.long})
-                        </p>
-                        <p className="text-yellow-500">
-                        ⭐ {hotel.stars} Stars
-                        </p>
-                        <p className="text-green-600 font-semibold">
-                        Price per Night: ${hotel.pricePerNight}
-                        </p>
-                      </article>
-                      </Link>
-                    </li>
-                    ))
-                  ) : (
-                    <li className="p-4 text-center text-gray-500">
-                    No hotels found.
-                    </li>
-                  )}
+                    {filteredHotels.length > 0 ? (
+                      filteredHotels.map((hotel) => (
+                        <li
+                          key={hotel.id}
+                          className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
+                          role="article"
+                        >
+                          <Link
+                            to={`/hotels/${hotel.id}`}
+                            className="block focus:ring-2 focus:ring-blue-500"
+                            aria-label={`View details of ${hotel.name}`}
+                          >
+                            <article>
+                              <h2 className="text-xl font-bold">
+                                {hotel.name}
+                              </h2>
+                              <p className="text-gray-700">
+                                {hotel.description}
+                              </p>
+                              <p className="text-gray-500">
+                                Location: ({hotel.location.lat},{" "}
+                                {hotel.location.long})
+                              </p>
+                              <p className="text-yellow-500">
+                                ⭐ {hotel.stars} Stars
+                              </p>
+                              <p className="text-green-600 font-semibold">
+                                Price per Night: ${hotel.pricePerNight}
+                              </p>
+                            </article>
+                          </Link>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="p-4 text-center text-gray-500">
+                        No hotels found.
+                      </li>
+                    )}
                   </ul>
                 </>
-                )}
+              )}
             </section>
           </main>
         </div>
       </div>
-    </>
+    </HotelsErrorBoundary>
   );
 };
 
