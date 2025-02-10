@@ -42,7 +42,7 @@ class HotelsErrorBoundary extends Component<Props, State> {
 
             <button
               onClick={this.handleRetry}
-              className="p-2 border border-gray-300 rounded hover:bg-gray-300 flex items-center"
+              className="p-2 border border-gray-300 transition rounded hover:bg-gray-300 flex items-center"
             >
               <FontAwesomeIcon icon={faSync} className="text-gray-700 mr-2" />
               Try Again

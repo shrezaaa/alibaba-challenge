@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { Hotel } from "../../types/hotel.model";
 import Map from "../../components/map/map";
-import HotelsErrorBoundary from "./errour-boundry";
+import HotelsErrorBoundary from "./error-boundry";
 
 const HotelsList: React.FC = () => {
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -43,7 +43,7 @@ const HotelsList: React.FC = () => {
               <h1 className="text-xl font-semibold">Hotels List</h1>
               <button
                 onClick={fetchHotels}
-                className="p-2 rounded-full hover:bg-gray-200 flex items-center focus:ring-2 focus:ring-blue-500"
+                className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                 aria-label="Refresh Hotels"
               >
                 <FontAwesomeIcon icon={faSync} className="text-gray-700" />
@@ -72,7 +72,7 @@ const HotelsList: React.FC = () => {
                   >
                     <Link
                       to={`/hotels/${hotel.id}`}
-                      className="block focus:ring-2 focus:ring-blue-500"
+                      className="block cursor-pointer"
                       aria-label={`View details of ${hotel.name}`}
                     >
                       <article>
