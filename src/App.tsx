@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/layout";
 
 const Home = lazy(() => import("./pages/home/home"));
-const Hotels = lazy(() => import("./pages/hotels/hotels"));
+const Hotels = lazy(() => import("./pages/hotels-list/hotels-list"));
 
 function App() {
   return (

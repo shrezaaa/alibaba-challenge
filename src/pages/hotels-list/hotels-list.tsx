@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { Hotel } from "../../types/hotel.model";
 
-const Hotels: React.FC = () => {
+const HotelsList: React.FC = () => {
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -96,4 +96,4 @@ const Hotels: React.FC = () => {
   );
 };
 
-export default Hotels;
+export default HotelsList;
