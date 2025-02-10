@@ -1,0 +1,20 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Homa",
+      "description": "Tehran Homa Hotel, one of the most prestigious five-star hotels in the capital...",
+      "location": { "long": 50, "lat": 50 },
+      "stars": 5,
+      "pricePerNight": 150
+    },
+    {
+      "id": 2,
+      "name": "Luxury Palace",
+      "description": "A luxurious stay with breathtaking views.",
+      "location": { "long": 51, "lat": 51 },
+      "stars": 4,
+      "pricePerNight": 200
+    }
+  ]
+}
