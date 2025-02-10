@@ -1,8 +1,7 @@
 import React from "react";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
 import { createRoot } from "react-dom/client";
-import { Workbox } from "workbox-window";
 
 const rootContainer = document.getElementById("root");
 const root = createRoot(rootContainer!);
