@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Homa",
       "description": "Tehran Homa Hotel, one of the most prestigious five-star hotels in the capital...",
-      "location": { "long": 50, "lat": 50 },
+      "location": { "long": 51.389, "lat": 35.689 },
       "stars": 5,
       "pricePerNight": 150
     },
@@ -12,9 +12,57 @@
       "id": 2,
       "name": "Luxury Palace",
       "description": "A luxurious stay with breathtaking views.",
-      "location": { "long": 51, "lat": 51 },
+      "location": { "long": 51.423, "lat": 35.731 },
       "stars": 4,
       "pricePerNight": 200
+    },
+    {
+      "id": 3,
+      "name": "Espinas Palace Hotel",
+      "description": "A luxurious 5-star hotel with modern amenities and stunning city views.",
+      "location": { "long": 51.375, "lat": 35.744 },
+      "stars": 5,
+      "pricePerNight": 250
+    },
+    {
+      "id": 4,
+      "name": "Parsian Azadi Hotel",
+      "description": "One of Tehran's most iconic hotels, located near the Azadi Tower.",
+      "location": { "long": 51.275, "lat": 35.699 },
+      "stars": 5,
+      "pricePerNight": 180
+    },
+    {
+      "id": 5,
+      "name": "Ferdowsi International Grand Hotel",
+      "description": "A historic hotel located in the heart of Tehran.",
+      "location": { "long": 51.416, "lat": 35.689 },
+      "stars": 4,
+      "pricePerNight": 120
+    },
+    {
+      "id": 6,
+      "name": "Esteghlal Hotel",
+      "description": "A luxurious hotel located in the northern part of Tehran.",
+      "location": { "long": 51.423, "lat": 35.801 },
+      "stars": 5,
+      "pricePerNight": 220
+    },
+    {
+      "id": 7,
+      "name": "Simorgh Hotel",
+      "description": "A comfortable and affordable hotel in Tehran.",
+      "location": { "long": 51.398, "lat": 35.712 },
+      "stars": 3,
+      "pricePerNight": 80
+    },
+    {
+      "id": 8,
+      "name": "Kowsar Hotel",
+      "description": "A budget-friendly hotel with great service.",
+      "location": { "long": 51.432, "lat": 35.721 },
+      "stars": 3,
+      "pricePerNight": 70
     }
   ]
 }
