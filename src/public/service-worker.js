@@ -1,5 +1,3 @@
-// public/service-worker.ts
-
 import { createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";

@@ -1,6 +1,5 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
@@ -15,9 +14,9 @@ export default defineConfig({
         globPatterns: ["**/*.{html,js,css,png,jpg,svg}"], // Add the types of files to cache
       },
       manifest: {
-        name: "My PWA App",
+        name: "Alibaba Hotels PWA",
         short_name: "PWA",
-        description: "My Progressive Web App built with Vite and React",
+        description: "Alibaba Hotels Progressive Web App built with Vite and React",
         theme_color: "#ffffff",
         icons: [
           {
