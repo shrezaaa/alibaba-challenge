@@ -50,6 +50,7 @@ const HotelPage: React.FC = () => {
                 <Link
                   to="/hotels"
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center cursor-pointer"
+                  aria-label="Back to Hotels"
                 >
                   <FontAwesomeIcon
                     icon={faArrowLeft}
@@ -64,6 +65,7 @@ const HotelPage: React.FC = () => {
                 <button
                   onClick={fetchHotel}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
+                  aria-label="Refresh hotel"
                 >
                   <FontAwesomeIcon icon={faSync} className="text-gray-700" />
                 </button>
