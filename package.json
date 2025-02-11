@@ -7,7 +7,9 @@
     "server": "npx json-server --watch db.json --port 5000",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -40,6 +42,17 @@
     "vite-plugin-pwa": "^0.21.1",
     "vitest": "^2.0.5",
     "workbox": "^0.0.0",
-    "workbox-build": "^7.3.0"
+    "workbox-build": "^7.3.0",
+    "@typescript-eslint/eslint-plugin": "7.3.0",
+    "@typescript-eslint/parser": "7.3.0",
+    "@typescript-eslint/utils": "^8.0.0-alpha.28",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-cypress": "^2.13.4",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0"
   }
 }

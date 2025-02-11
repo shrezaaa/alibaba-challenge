@@ -1,1 +1,4 @@
-export type LatLngExp = { lat: number; long: number };
+export interface LatLngExp {
+  lat: number;
+  long: number;
+}
