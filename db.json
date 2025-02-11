@@ -6,7 +6,27 @@
       "description": "Tehran Homa Hotel, one of the most prestigious five-star hotels in the capital...",
       "location": { "long": 51.389, "lat": 35.689 },
       "stars": 5,
-      "pricePerNight": 150
+      "pricePerNight": 150,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Conference Hall", "icon": "🏢" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "John Doe",
+          "rating": 5,
+          "comment": "Great hotel with amazing service!"
+        },
+        {
+          "id": 2,
+          "user": "Emily Smith",
+          "rating": 4,
+          "comment": "Loved the breakfast and the view from my room!"
+        }
+      ]
     },
     {
       "id": 2,
@@ -14,7 +34,27 @@
       "description": "A luxurious stay with breathtaking views.",
       "location": { "long": 51.423, "lat": 35.731 },
       "stars": 4,
-      "pricePerNight": 200
+      "pricePerNight": 200,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Swimming Pool", "icon": "🏊‍♂️" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "Michael Brown",
+          "rating": 4,
+          "comment": "Luxurious and comfortable stay!"
+        },
+        {
+          "id": 2,
+          "user": "Sarah Johnson",
+          "rating": 5,
+          "comment": "The views from the room were stunning!"
+        }
+      ]
     },
     {
       "id": 3,
@@ -22,7 +62,28 @@
       "description": "A luxurious 5-star hotel with modern amenities and stunning city views.",
       "location": { "long": 51.375, "lat": 35.744 },
       "stars": 5,
-      "pricePerNight": 250
+      "pricePerNight": 250,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Spa", "icon": "🧖‍♀️" },
+        { "id": 5, "name": "Swimming Pool", "icon": "🏊‍♂️" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "David Wilson",
+          "rating": 5,
+          "comment": "The spa was amazing, and the staff was very friendly!"
+        },
+        {
+          "id": 2,
+          "user": "Laura Davis",
+          "rating": 4,
+          "comment": "Great location and excellent service!"
+        }
+      ]
     },
     {
       "id": 4,
@@ -30,7 +91,28 @@
       "description": "One of Tehran's most iconic hotels, located near the Azadi Tower.",
       "location": { "long": 51.275, "lat": 35.699 },
       "stars": 5,
-      "pricePerNight": 180
+      "pricePerNight": 180,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Gym", "icon": "🏋️‍♂️" },
+        { "id": 5, "name": "Conference Hall", "icon": "🏢" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "James Miller",
+          "rating": 5,
+          "comment": "The gym facilities were top-notch!"
+        },
+        {
+          "id": 2,
+          "user": "Emma Wilson",
+          "rating": 4,
+          "comment": "Great hotel with a historic vibe!"
+        }
+      ]
     },
     {
       "id": 5,
@@ -38,7 +120,27 @@
       "description": "A historic hotel located in the heart of Tehran.",
       "location": { "long": 51.416, "lat": 35.689 },
       "stars": 4,
-      "pricePerNight": 120
+      "pricePerNight": 120,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Parking", "icon": "🅿️" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "Ali Reza",
+          "rating": 4,
+          "comment": "Great location with good service."
+        },
+        {
+          "id": 2,
+          "user": "Maryam D",
+          "rating": 5,
+          "comment": "Loved the historic architecture!"
+        }
+      ]
     },
     {
       "id": 6,
@@ -46,7 +148,27 @@
       "description": "A luxurious hotel located in the northern part of Tehran.",
       "location": { "long": 51.423, "lat": 35.801 },
       "stars": 5,
-      "pricePerNight": 220
+      "pricePerNight": 220,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Spa", "icon": "🧖‍♀️" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "Omid N.",
+          "rating": 5,
+          "comment": "Best spa experience ever!"
+        },
+        {
+          "id": 2,
+          "user": "Sara T.",
+          "rating": 4,
+          "comment": "Luxurious and elegant!"
+        }
+      ]
     },
     {
       "id": 7,
@@ -54,7 +176,27 @@
       "description": "A comfortable and affordable hotel in Tehran.",
       "location": { "long": 51.398, "lat": 35.712 },
       "stars": 3,
-      "pricePerNight": 80
+      "pricePerNight": 80,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Laundry Service", "icon": "🧺" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "Reza K.",
+          "rating": 3,
+          "comment": "Decent stay for the price."
+        },
+        {
+          "id": 2,
+          "user": "Hassan M.",
+          "rating": 4,
+          "comment": "Very clean and comfortable rooms."
+        }
+      ]
     },
     {
       "id": 8,
@@ -62,7 +204,27 @@
       "description": "A budget-friendly hotel with great service.",
       "location": { "long": 51.432, "lat": 35.721 },
       "stars": 3,
-      "pricePerNight": 70
+      "pricePerNight": 70,
+      "facilities": [
+        { "id": 1, "name": "24/7 Service", "icon": "🏨" },
+        { "id": 2, "name": "Restaurant", "icon": "🍽️" },
+        { "id": 3, "name": "Free WiFi", "icon": "📶" },
+        { "id": 4, "name": "Airport Shuttle", "icon": "🛫" }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "user": "Majid P.",
+          "rating": 3,
+          "comment": "Good service for a budget hotel."
+        },
+        {
+          "id": 2,
+          "user": "Narges L.",
+          "rating": 4,
+          "comment": "Affordable and well-maintained."
+        }
+      ]
     }
   ]
 }

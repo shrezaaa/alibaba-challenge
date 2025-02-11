@@ -40,42 +40,6 @@ const HotelPage: React.FC = () => {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
 
-  // Static Facilities Data
-  const facilities = [
-    { name: "24/7 Service", icon: "🏨" },
-    { name: "Restaurant", icon: "🍽️" },
-    { name: "Free WiFi", icon: "📶" },
-    { name: "Conference Hall", icon: "🏢" },
-    { name: "Coffee Shop", icon: "☕" },
-    { name: "ATM", icon: "🏧" },
-    { name: "Prayer Room", icon: "🕌" },
-    { name: "Taxi Service", icon: "🚖" },
-    { name: "Elevator", icon: "🛗" },
-    { name: "Fire Alarm", icon: "🚨" },
-  ];
-
-  // Static User Reviews
-  const reviews = [
-    {
-      id: 1,
-      user: "John Doe",
-      rating: 5,
-      comment: "Great hotel with amazing service!",
-    },
-    {
-      id: 2,
-      user: "Emily Smith",
-      rating: 4,
-      comment: "Loved the breakfast and the view from my room!",
-    },
-    {
-      id: 3,
-      user: "Michael Brown",
-      rating: 3,
-      comment: "Good place, but the WiFi was slow.",
-    },
-  ];
-
   return (
     <HotelErrorBoundary>
       <div className="w-full h-full flex flex-wrap p-2">
@@ -126,9 +90,9 @@ const HotelPage: React.FC = () => {
                   Facilities & Features
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {facilities.map((facility, index) => (
+                  {hotel.facilities.map((facility) => (
                     <div
-                      key={index}
+                      key={facility.id}
                       className="flex items-center bg-white p-2 rounded-md shadow-sm"
                     >
                       <span className="text-xl mr-2">{facility.icon}</span>
@@ -145,7 +109,7 @@ const HotelPage: React.FC = () => {
               <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
                 <h2 className="text-xl font-semibold mb-3">User Reviews</h2>
                 <div className="space-y-4">
-                  {reviews.map((review) => (
+                  {hotel.reviews.map((review) => (
                     <div
                       key={review.id}
                       className="p-4 bg-white rounded-md shadow-sm border"
