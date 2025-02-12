@@ -40,6 +40,7 @@ const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
 });
 
 const HotelsList: React.FC = () => {
+  const navigate = useNavigate();
   const { hotels, loading, error, fetchHotels } = useFetchHotelsList();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -59,7 +60,6 @@ const HotelsList: React.FC = () => {
   );
 
   const handleMarkerClick = (hotelId: number) => {
-    const navigate = useNavigate();
     navigate(`/hotels/${hotelId}`);
   };
 
