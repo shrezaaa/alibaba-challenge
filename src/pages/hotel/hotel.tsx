@@ -1,36 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { Hotel } from "../../types/hotel.model";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSync, faStar } from "@fortawesome/free-solid-svg-icons";
 import Map from "../../components/map/map";
 import HotelErrorBoundary from "./error-boundry";
+import useFetchHotel from "../../hooks/use-fetch-hotel";
 
 const HotelPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [hotel, setHotel] = useState<Hotel | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchHotel = async () => {
-    setError(null);
-    try {
-      const response = await fetch(
-        `http://localhost:5000/hotels/${Number(id)}`
-      );
-      if (!response.ok) {
-        throw new Error("Hotel not found");
-      }
-      const data = await response.json();
-      setHotel(data);
-    } catch (error) {
-      setError("Hotel not found. Please check the ID or go back.");
-      console.error("Error fetching hotel:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchHotel();
-  }, [id]);
+  const { hotel, error } = useFetchHotel(id);
 
   if (error) {
     throw new Error(error);
@@ -63,7 +41,7 @@ const HotelPage: React.FC = () => {
               </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
-                  onClick={fetchHotel}
+                  onClick={() => useFetchHotel(id)}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                   aria-label="Refresh hotel"
                 >

@@ -1,35 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
-import { Hotel } from "../../types/hotel.model";
 import Map from "../../components/map/map";
 import HotelsErrorBoundary from "./error-boundry";
+import { Hotel } from "../../types/hotel.model";
+import useFetchHotelsList from "../../hooks/use-fetch-hotels-list";
 
 const HotelsList: React.FC = () => {
-  const [hotels, setHotels] = useState<Hotel[]>([]);
+  const { hotels, loading, error, fetchHotels } = useFetchHotelsList();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchHotels = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/hotels");
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-      const data = await response.json();
-      setHotels(data);
-    } catch (error) {
-      console.error("Error fetching hotels:", error);
-      throw error; // Caught by the error boundary
-    }
-  };
-
-  useEffect(() => {
-    fetchHotels();
-  }, []);
-
   const filteredHotels = hotels.filter(
-    (hotel) =>
+    (hotel: Hotel) =>
       hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -51,6 +34,7 @@ const HotelsList: React.FC = () => {
             </div>
             <div className="mt-2">
               <input
+                data-testid="search-input"
                 type="text"
                 className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Search hotels..."
@@ -62,9 +46,11 @@ const HotelsList: React.FC = () => {
           </header>
 
           <main className="grow overflow-auto p-4 " role="main">
+            {loading && <p className="text-center text-gray-500">Loading...</p>}
+            {error && <p className="text-center text-red-500">{error}</p>}
             {filteredHotels.length > 0 ? (
               <ul className="space-y-4">
-                {filteredHotels.map((hotel) => (
+                {filteredHotels.map((hotel: Hotel) => (
                   <li
                     key={hotel.id}
                     className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
