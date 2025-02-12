@@ -1,0 +1,36 @@
+name: Lint and Format Check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.11.0'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
+        with:
+            version: 8 
+
+      - name: Install Dependencies
+        run: pnpm install --force
+
+      - name: Run Linter
+        run: pnpm run lint
+        env:
+          CI: true
+
+      - name: Check Formatting
+        run: pnpm run format:test
+        env:
+          CI: true
