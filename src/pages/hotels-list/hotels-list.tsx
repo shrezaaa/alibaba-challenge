@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
@@ -7,15 +7,49 @@ import HotelsErrorBoundary from "./error-boundry";
 import { Hotel } from "../../types/hotel.model";
 import useFetchHotelsList from "../../hooks/use-fetch-hotels-list";
 
+const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
+  return (
+    <li
+      key={hotel.id}
+      className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
+      role="article"
+    >
+      <Link
+        to={`/hotels/${hotel.id}`}
+        className="block cursor-pointer"
+        aria-label={`View details of ${hotel.name}`}
+      >
+        <article>
+          <h2 className="text-xl font-bold">{hotel.name}</h2>
+          <p className="text-gray-700">{hotel.description}</p>
+          <p className="text-gray-500">
+            📍 {hotel.location.lat}, {hotel.location.long}
+          </p>
+          <p className="text-yellow-500">⭐ {hotel.stars} Stars</p>
+          <p className="text-green-600 font-semibold">
+            💰 ${hotel.pricePerNight} / Night
+          </p>
+        </article>
+      </Link>
+    </li>
+  );
+});
+
 const HotelsList: React.FC = () => {
   const { hotels, loading, error, fetchHotels } = useFetchHotelsList();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredHotels = hotels.filter(
-    (hotel: Hotel) =>
-      hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredHotels = useMemo(() => {
+    return hotels.filter(
+      (hotel: Hotel) =>
+        hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [hotels, searchQuery]);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  }, []);
 
   return (
     <HotelsErrorBoundary>
@@ -39,7 +73,7 @@ const HotelsList: React.FC = () => {
                 className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Search hotels..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 aria-label="Search Hotels"
               />
             </div>
@@ -51,31 +85,7 @@ const HotelsList: React.FC = () => {
             {filteredHotels.length > 0 ? (
               <ul className="space-y-4">
                 {filteredHotels.map((hotel: Hotel) => (
-                  <li
-                    key={hotel.id}
-                    className="p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition"
-                    role="article"
-                  >
-                    <Link
-                      to={`/hotels/${hotel.id}`}
-                      className="block cursor-pointer"
-                      aria-label={`View details of ${hotel.name}`}
-                    >
-                      <article>
-                        <h2 className="text-xl font-bold">{hotel.name}</h2>
-                        <p className="text-gray-700">{hotel.description}</p>
-                        <p className="text-gray-500">
-                          📍 {hotel.location.lat}, {hotel.location.long}
-                        </p>
-                        <p className="text-yellow-500">
-                          ⭐ {hotel.stars} Stars
-                        </p>
-                        <p className="text-green-600 font-semibold">
-                          💰 ${hotel.pricePerNight} / Night
-                        </p>
-                      </article>
-                    </Link>
-                  </li>
+                  <HotelListItem key={hotel.id} hotel={hotel} />
                 ))}
               </ul>
             ) : (

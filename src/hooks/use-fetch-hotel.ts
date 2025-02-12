@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Hotel } from "../types/hotel.model";
 
 interface HotelPageState {
   hotel: Hotel | null;
   error: string | null;
+  fetchHotel: () => void;
 }
 
 const useFetchHotel = (id: string | undefined): HotelPageState => {
   const [hotel, setHotel] = useState<Hotel | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchHotel = async (): Promise<void> => {
+  const fetchHotel = useCallback(async (): Promise<void> => {
+    if (!id) return;
     setError(null);
     try {
       const response = await fetch(
@@ -21,17 +23,17 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
       }
       const data: Hotel = await response.json();
       setHotel(data);
-    } catch (error) {
+    } catch (err) {
       setError("Hotel not found. Please check the ID or go back.");
-      console.error("Error fetching hotel:", error);
+      console.error("Error fetching hotel:", err);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchHotel();
-  }, [id]);
+  }, [fetchHotel]);
 
-  return { hotel, error };
+  return { hotel, error, fetchHotel };
 };
 
 export default useFetchHotel;

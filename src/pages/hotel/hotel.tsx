@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSync, faStar } from "@fortawesome/free-solid-svg-icons";
 import Map from "../../components/map/map";
 import HotelErrorBoundary from "./error-boundry";
 import useFetchHotel from "../../hooks/use-fetch-hotel";
+import { Facility, Review } from "../../types/hotel.model";
+
+const FacilityItem = React.memo(({ facility }: { facility: Facility }) => (
+  <div className="flex items-center bg-white p-2 rounded-md shadow-sm">
+    <span className="text-xl mr-2">{facility.icon}</span>
+    <span className="text-gray-700">{facility.name}</span>
+  </div>
+));
+
+const ReviewItem = React.memo(({ review }: { review: Review }) => (
+  <div className="p-4 bg-white rounded-md shadow-sm border">
+    <div className="flex items-center">
+      <h3 className="font-semibold text-gray-800">{review.user}</h3>
+      <div className="ml-2 text-yellow-500 flex">
+        {Array(review.rating)
+          .fill(0)
+          .map((_, i) => (
+            <FontAwesomeIcon key={i} icon={faStar} />
+          ))}
+      </div>
+    </div>
+    <p className="text-gray-700 mt-1">{review.comment}</p>
+  </div>
+));
 
 const HotelPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { hotel, error } = useFetchHotel(id);
+  const { hotel, error, fetchHotel } = useFetchHotel(id);
 
   if (error) {
     throw new Error(error);
@@ -17,6 +41,10 @@ const HotelPage: React.FC = () => {
   if (!hotel) {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
+
+  const handleRefresh = useCallback(() => {
+    fetchHotel();
+  }, [fetchHotel]);
 
   return (
     <HotelErrorBoundary>
@@ -41,7 +69,7 @@ const HotelPage: React.FC = () => {
               </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
-                  onClick={() => useFetchHotel(id)}
+                  onClick={handleRefresh}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                   aria-label="Refresh hotel"
                 >
@@ -64,20 +92,13 @@ const HotelPage: React.FC = () => {
                 Price per Night: ${hotel.pricePerNight}
               </p>
 
-              {/* Facilities & Features Section */}
               <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
                 <h2 className="text-xl font-semibold mb-3">
                   Facilities & Features
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {hotel.facilities.map((facility) => (
-                    <div
-                      key={facility.id}
-                      className="flex items-center bg-white p-2 rounded-md shadow-sm"
-                    >
-                      <span className="text-xl mr-2">{facility.icon}</span>
-                      <span className="text-gray-700">{facility.name}</span>
-                    </div>
+                    <FacilityItem key={facility.id} facility={facility} />
                   ))}
                 </div>
               </section>
@@ -90,24 +111,7 @@ const HotelPage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-3">User Reviews</h2>
                 <div className="space-y-4">
                   {hotel.reviews.map((review) => (
-                    <div
-                      key={review.id}
-                      className="p-4 bg-white rounded-md shadow-sm border"
-                    >
-                      <div className="flex items-center">
-                        <h3 className="font-semibold text-gray-800">
-                          {review.user}
-                        </h3>
-                        <div className="ml-2 text-yellow-500 flex">
-                          {Array(review.rating)
-                            .fill(0)
-                            .map((_, i) => (
-                              <FontAwesomeIcon key={i} icon={faStar} />
-                            ))}
-                        </div>
-                      </div>
-                      <p className="text-gray-700 mt-1">{review.comment}</p>
-                    </div>
+                    <ReviewItem key={review.id} review={review} />
                   ))}
                 </div>
               </section>
