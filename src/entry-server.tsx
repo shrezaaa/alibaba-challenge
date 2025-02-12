@@ -1,12 +1,10 @@
-import React from 'react';
-import { StaticRouter } from 'react-router-dom/server';
-import { renderToString } from 'react-dom/server';
-import App from './App';
+import React from "react";
+import { renderToString } from "react-dom/server";
+import { StaticRouter } from "react-router-dom/server";
+import App from "./App";
 
-export function render(url: any) {
+export function render(url: string) {
   return renderToString(
-    <StaticRouter location={url}>
-      <App />
-    </StaticRouter>
+      <App isServer url={url} />
   );
 }
