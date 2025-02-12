@@ -20,7 +20,9 @@ const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
         aria-label={`View details of ${hotel.name}`}
       >
         <article>
-          <h2 className="text-xl font-bold">{hotel.name}</h2>
+          <h2 data-testid="hotel-name" className="text-xl font-bold">
+            {hotel.name}
+          </h2>
           <p className="text-gray-700">{hotel.description}</p>
           <p className="text-gray-500">
             📍 {hotel.location.lat}, {hotel.location.long}
@@ -47,9 +49,12 @@ const HotelsList: React.FC = () => {
     );
   }, [hotels, searchQuery]);
 
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  }, []);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+    },
+    []
+  );
 
   return (
     <HotelsErrorBoundary>
@@ -57,7 +62,9 @@ const HotelsList: React.FC = () => {
         <div className="w-1/3 h-full flex flex-col bg-white shadow-lg">
           <header className="p-4 border-b " role="banner">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-semibold">Hotels List</h1>
+              <h1 data-testid="hotel-title" className="text-xl font-semibold">
+                Hotels List
+              </h1>
               <button
                 onClick={fetchHotels}
                 className="p-2 rounded-full hover:bg-gray-200 flex items-center"
