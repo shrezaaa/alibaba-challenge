@@ -108,7 +108,7 @@ const HotelPage: React.FC = () => {
               </section>
 
               <div className="lg:flex mt-6">
-                {/* <Map locations={[hotelLocation]} /> */}
+                <Map locations={[hotelLocation]} />
               </div>
 
               <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
