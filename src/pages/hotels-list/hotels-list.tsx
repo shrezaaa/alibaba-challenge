@@ -1,11 +1,12 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, lazy } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
-import Map from "../../components/map/map";
 import HotelsErrorBoundary from "./error-boundry";
 import { Hotel } from "../../types/hotel.model";
 import useFetchHotelsList from "../../hooks/use-fetch-hotels-list";
+
+const Map = lazy(() => import("../../components/map/map"));
 
 const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
   return (
@@ -27,7 +28,7 @@ const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
           <p className="text-gray-500">
             📍 {hotel.location.lat}, {hotel.location.long}
           </p>
-          <p className="text-yellow-500">⭐ {hotel.stars} Stars</p>
+          <p className="text-yellow-800">⭐ {hotel.stars} Stars</p>
           <p className="text-green-600 font-semibold">
             💰 ${hotel.pricePerNight} / Night
           </p>
