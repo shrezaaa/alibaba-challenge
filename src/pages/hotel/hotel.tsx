@@ -18,7 +18,7 @@ const ReviewItem = React.memo(({ review }: { review: Review }) => (
   <div className="p-4 bg-white rounded-md shadow-sm border">
     <div className="flex items-center">
       <h3 className="font-semibold text-gray-800">{review.user}</h3>
-      <div className="ml-2 text-yellow-500 flex">
+      <div className="ml-2 text-yellow-800 flex">
         {Array(review.rating)
           .fill(0)
           .map((_, i) => (
@@ -83,7 +83,7 @@ const HotelPage: React.FC = () => {
               <p className="text-gray-500 mt-1">
                 Location: ({hotel.location.lat}, {hotel.location.long})
               </p>
-              <p className="text-yellow-500 mt-1">⭐ {hotel.stars} Stars</p>
+              <p className="text-yellow-800 mt-1">⭐ {hotel.stars} Stars</p>
               <p className="text-green-600 font-semibold mt-2">
                 Price per Night: ${hotel.pricePerNight}
               </p>

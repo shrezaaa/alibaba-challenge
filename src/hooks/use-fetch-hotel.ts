@@ -17,7 +17,7 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/hotels/${Number(id)}`
+        `${import.meta.env.VITE_API_URL}/hotels/${Number(id)}`
       );
       if (!response.ok) {
         throw new Error("Hotel not found");
@@ -27,7 +27,7 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
     } catch (err) {
       setError("Hotel not found. Please check the ID or go back.");
       console.error("Error fetching hotel:", err);
-    } 
+    }
   }, [id]);
 
   useEffect(() => {

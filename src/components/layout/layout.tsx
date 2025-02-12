@@ -7,7 +7,6 @@ const Layout: React.FC = () => {
     <>
       <Navbar />
       <div className="bg-gray-200 relative overflow-auto h-[calc(100vh-56px)]">
-        {/* <LoadingBar /> Uncomment this if you have a loading bar component */}
         <div className="p-0 w-full h-full">
           <Outlet />
         </div>
