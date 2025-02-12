@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import HotelsList from "./hotels-list";
 import React from "react";
@@ -81,6 +81,48 @@ describe("HotelsList Component", () => {
 
     const input = await screen.findByTestId("search-input");
     expect(input).toBeTruthy();
-    expect(screen.getAllByText("Homa")).toBeTruthy();
   });
+
+  it("should filter hotels based on search query", () => {
+    render(
+      <MemoryRouter>
+        <HotelsList />
+      </MemoryRouter>
+    );
+
+    const searchInput = screen.getByTestId("search-input");
+    fireEvent.change(searchInput, { target: { value: "Homa" } });
+
+    const hotelNames = screen.getAllByTestId("hotel-name");
+    expect(hotelNames.length).toBe(1);
+    expect(hotelNames[0].textContent).toBe("Homa");
+  });
+});
+
+it("should render two hotels and display Homa and Luxury Palace", () => {
+  render(
+    <MemoryRouter>
+      <HotelsList />
+    </MemoryRouter>
+  );
+
+  const hotelNames = screen.getAllByTestId("hotel-name");
+  expect(hotelNames.length).toBe(2);
+
+  expect(screen.getAllByText("Homa")).toBeTruthy();
+  expect(screen.getAllByText("Luxury Palace")).toBeTruthy();
+});
+
+it("should display 'No results found' when no hotels match the search query", () => {
+  render(
+    <MemoryRouter>
+      <HotelsList />
+    </MemoryRouter>
+  );
+
+  const searchInput = screen.getByTestId("search-input");
+  fireEvent.change(searchInput, { target: { value: "NonExistentHotel" } });
+
+  const noResultsMessage = screen.getByText("No hotels found.");
+  expect(noResultsMessage).toBeInTheDocument();
 });
