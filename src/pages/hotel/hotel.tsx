@@ -42,10 +42,6 @@ const HotelPage: React.FC = () => {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
 
-  const handleRefresh = useCallback(() => {
-    fetchHotel();
-  }, [fetchHotel]);
-
   return (
     <HotelErrorBoundary>
       <div className="w-full h-full flex flex-wrap p-2">
@@ -69,7 +65,7 @@ const HotelPage: React.FC = () => {
               </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
-                  onClick={handleRefresh}
+                  onClick={fetchHotel}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                   aria-label="Refresh hotel"
                 >

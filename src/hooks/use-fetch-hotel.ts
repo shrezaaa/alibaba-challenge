@@ -14,6 +14,7 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
   const fetchHotel = useCallback(async (): Promise<void> => {
     if (!id) return;
     setError(null);
+
     try {
       const response = await fetch(
         `http://localhost:5000/hotels/${Number(id)}`
@@ -26,7 +27,7 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
     } catch (err) {
       setError("Hotel not found. Please check the ID or go back.");
       console.error("Error fetching hotel:", err);
-    }
+    } 
   }, [id]);
 
   useEffect(() => {
