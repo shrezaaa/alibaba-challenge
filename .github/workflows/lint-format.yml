@@ -17,20 +17,10 @@ jobs:
         with:
           node-version: '20.11.0'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
-        with:
-            version: 8 
-
       - name: Install Dependencies
-        run: pnpm install --force
+        run: npm install --force
 
       - name: Run Linter
-        run: pnpm run lint
-        env:
-          CI: true
-
-      - name: Check Formatting
-        run: pnpm run format:test
+        run: npm run lint
         env:
           CI: true

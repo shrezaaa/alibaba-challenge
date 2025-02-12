@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Docker Build and Run",
+      "type": "shell",
+      "command": "./scripts/docker_build_run.sh",
+      "problemMatcher": [],
+      "detail": "Build and run Docker container"
+    },
+    {
+      "label": "Run Server and Dev Mode",
+      "type": "shell",
+      "command": "./scripts/run_all.sh",
+      "problemMatcher": [],
+      "detail": "Run the server and React dev mode concurrently"
+    }
+  ]
+}
