@@ -10,13 +10,7 @@ import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import { renderToString } from "react-dom/server";
 
 import "./map.scss";
-
-interface Location {
-  id: number;
-  name: string;
-  lat: number;
-  long: number;
-}
+import { Location } from "../../types/location.model";
 
 interface MapProps<T extends Location> {
   locations: T[];

@@ -6,6 +6,7 @@ import Map from "../../components/map/map";
 import HotelErrorBoundary from "./error-boundry";
 import useFetchHotel from "../../hooks/use-fetch-hotel";
 import { Facility, Review } from "../../types/hotel.model";
+import { Location } from "../../types/location.model";
 
 const FacilityItem = React.memo(({ facility }: { facility: Facility }) => (
   <div className="flex items-center bg-white p-2 rounded-md shadow-sm">
@@ -41,6 +42,13 @@ const HotelPage: React.FC = () => {
   if (!hotel) {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
+
+  const hotelLocation: Location = {
+    id: hotel.id,
+    name: hotel.name,
+    lat: hotel.location.lat,
+    long: hotel.location.long,
+  };
 
   return (
     <HotelErrorBoundary>
@@ -100,7 +108,7 @@ const HotelPage: React.FC = () => {
               </section>
 
               <div className="lg:flex mt-6">
-                <Map hotels={[hotel]} />
+                {/* <Map locations={[hotelLocation]} /> */}
               </div>
 
               <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
