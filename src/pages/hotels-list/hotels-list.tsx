@@ -1,11 +1,13 @@
-import React, { useState, useMemo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useMemo, useCallback, lazy } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
-import Map from "../../components/map/map";
 import HotelsErrorBoundary from "./error-boundry";
 import { Hotel } from "../../types/hotel.model";
 import useFetchHotelsList from "../../hooks/use-fetch-hotels-list";
+import { Location } from "../../types/location.model";
+
+const Map = lazy(() => import("../../components/map/map"));
 
 const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
   return (
@@ -20,12 +22,14 @@ const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
         aria-label={`View details of ${hotel.name}`}
       >
         <article>
-          <h2 className="text-xl font-bold">{hotel.name}</h2>
+          <h2 data-testid="hotel-name" className="text-xl font-bold">
+            {hotel.name}
+          </h2>
           <p className="text-gray-700">{hotel.description}</p>
           <p className="text-gray-500">
             📍 {hotel.location.lat}, {hotel.location.long}
           </p>
-          <p className="text-yellow-500">⭐ {hotel.stars} Stars</p>
+          <p className="text-yellow-800">⭐ {hotel.stars} Stars</p>
           <p className="text-green-600 font-semibold">
             💰 ${hotel.pricePerNight} / Night
           </p>
@@ -36,6 +40,7 @@ const HotelListItem = React.memo(({ hotel }: { hotel: Hotel }) => {
 });
 
 const HotelsList: React.FC = () => {
+  const navigate = useNavigate();
   const { hotels, loading, error, fetchHotels } = useFetchHotelsList();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -47,9 +52,23 @@ const HotelsList: React.FC = () => {
     );
   }, [hotels, searchQuery]);
 
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  }, []);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+    },
+    []
+  );
+
+  const handleMarkerClick = (hotelId: number) => {
+    navigate(`/hotels/${hotelId}`);
+  };
+
+  const hotelLocations: Location[] = filteredHotels.map((hotel) => ({
+    id: hotel.id,
+    name: hotel.name,
+    lat: hotel.location.lat,
+    long: hotel.location.long,
+  }));
 
   return (
     <HotelsErrorBoundary>
@@ -57,7 +76,9 @@ const HotelsList: React.FC = () => {
         <div className="w-1/3 h-full flex flex-col bg-white shadow-lg">
           <header className="p-4 border-b " role="banner">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-semibold">Hotels List</h1>
+              <h1 data-testid="hotel-title" className="text-xl font-semibold">
+                Hotels List
+              </h1>
               <button
                 onClick={fetchHotels}
                 className="p-2 rounded-full hover:bg-gray-200 flex items-center"
@@ -95,7 +116,12 @@ const HotelsList: React.FC = () => {
         </div>
 
         <div className="w-2/3 h-full">
-          <Map hotels={filteredHotels} height="100%" width="100%" />
+          <Map
+            locations={hotelLocations}
+            height="100%"
+            width="100%"
+            onMarkerClick={handleMarkerClick}
+          />
         </div>
       </div>
     </HotelsErrorBoundary>

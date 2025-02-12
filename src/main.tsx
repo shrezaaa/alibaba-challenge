@@ -7,7 +7,7 @@ const rootContainer = document.getElementById("root");
 const root = createRoot(rootContainer!);
 // Register service worker if available
 
-if ("serviceWorker" in navigator && process.env.NODE_ENV === "development") {
+if ("serviceWorker" in navigator && import.meta.env.DEV) {
   const serviceWorkerUrl = `/sw.js`;
 
   // Register service worker

@@ -18,14 +18,18 @@ const useFetchHotelsList = (): UseFetchHotelsResponse => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5000/hotels");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/hotels`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
       const data: Hotel[] = await response.json();
       setHotels(data);
     } catch (error) {
-      setError(`Error fetching hotels: ${error instanceof Error ? error.message : error}`);
+      setError(
+        `Error fetching hotels: ${
+          error instanceof Error ? error.message : error
+        }`
+      );
     } finally {
       setLoading(false);
     }

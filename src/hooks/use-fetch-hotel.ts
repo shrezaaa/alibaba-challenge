@@ -14,9 +14,10 @@ const useFetchHotel = (id: string | undefined): HotelPageState => {
   const fetchHotel = useCallback(async (): Promise<void> => {
     if (!id) return;
     setError(null);
+
     try {
       const response = await fetch(
-        `http://localhost:5000/hotels/${Number(id)}`
+        `${import.meta.env.VITE_API_URL}/hotels/${Number(id)}`
       );
       if (!response.ok) {
         throw new Error("Hotel not found");

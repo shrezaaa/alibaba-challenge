@@ -6,6 +6,7 @@ import Map from "../../components/map/map";
 import HotelErrorBoundary from "./error-boundry";
 import useFetchHotel from "../../hooks/use-fetch-hotel";
 import { Facility, Review } from "../../types/hotel.model";
+import { Location } from "../../types/location.model";
 
 const FacilityItem = React.memo(({ facility }: { facility: Facility }) => (
   <div className="flex items-center bg-white p-2 rounded-md shadow-sm">
@@ -18,7 +19,7 @@ const ReviewItem = React.memo(({ review }: { review: Review }) => (
   <div className="p-4 bg-white rounded-md shadow-sm border">
     <div className="flex items-center">
       <h3 className="font-semibold text-gray-800">{review.user}</h3>
-      <div className="ml-2 text-yellow-500 flex">
+      <div className="ml-2 text-yellow-800 flex">
         {Array(review.rating)
           .fill(0)
           .map((_, i) => (
@@ -42,9 +43,12 @@ const HotelPage: React.FC = () => {
     return <div className="text-center text-gray-500">Loading hotel...</div>;
   }
 
-  const handleRefresh = useCallback(() => {
-    fetchHotel();
-  }, [fetchHotel]);
+  const hotelLocation: Location = {
+    id: hotel.id,
+    name: hotel.name,
+    lat: hotel.location.lat,
+    long: hotel.location.long,
+  };
 
   return (
     <HotelErrorBoundary>
@@ -69,7 +73,7 @@ const HotelPage: React.FC = () => {
               </h1>
               <div className="flex items-center min-w-full md:min-w-0 md:grow justify-end">
                 <button
-                  onClick={handleRefresh}
+                  onClick={fetchHotel}
                   className="p-2 rounded-full hover:bg-gray-200 flex items-center"
                   aria-label="Refresh hotel"
                 >
@@ -87,7 +91,7 @@ const HotelPage: React.FC = () => {
               <p className="text-gray-500 mt-1">
                 Location: ({hotel.location.lat}, {hotel.location.long})
               </p>
-              <p className="text-yellow-500 mt-1">⭐ {hotel.stars} Stars</p>
+              <p className="text-yellow-800 mt-1">⭐ {hotel.stars} Stars</p>
               <p className="text-green-600 font-semibold mt-2">
                 Price per Night: ${hotel.pricePerNight}
               </p>
@@ -104,7 +108,7 @@ const HotelPage: React.FC = () => {
               </section>
 
               <div className="lg:flex mt-6">
-                <Map hotels={[hotel]} />
+                <Map locations={[hotelLocation]} />
               </div>
 
               <section className="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm">
