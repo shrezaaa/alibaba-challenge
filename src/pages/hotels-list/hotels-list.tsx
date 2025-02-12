@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, lazy } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import HotelsErrorBoundary from "./error-boundry";
@@ -57,6 +57,18 @@ const HotelsList: React.FC = () => {
     []
   );
 
+  const handleMarkerClick = (hotelId: number) => {
+    const navigate = useNavigate();
+    navigate(`/hotels/${hotelId}`);
+  };
+
+  const hotelLocations = filteredHotels.map((hotel) => ({
+    id: hotel.id,
+    name: hotel.name,
+    lat: hotel.location.lat,
+    long: hotel.location.long,
+  }));
+
   return (
     <HotelsErrorBoundary>
       <div className="w-full h-full flex" role="main">
@@ -103,7 +115,12 @@ const HotelsList: React.FC = () => {
         </div>
 
         <div className="w-2/3 h-full">
-          <Map hotels={filteredHotels} height="100%" width="100%" />
+          <Map
+            locations={hotelLocations}
+            height="100%"
+            width="100%"
+            onMarkerClick={handleMarkerClick}
+          />
         </div>
       </div>
     </HotelsErrorBoundary>
