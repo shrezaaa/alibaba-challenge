@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 import App from "./App";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 
 const rootContainer = document.getElementById("root");
 const root = createRoot(rootContainer!);
@@ -21,8 +21,7 @@ if ("serviceWorker" in navigator && import.meta.env.DEV) {
     });
 }
 
-root.render(
-  <React.StrictMode>
+hydrateRoot(
+  document.getElementById("root") as HTMLElement,
     <App />
-  </React.StrictMode>
-);
+)
