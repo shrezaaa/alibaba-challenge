@@ -9,8 +9,7 @@
     "serve": "vite preview",
     "test": "vitest",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "ssr-server": "node server.js"
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",

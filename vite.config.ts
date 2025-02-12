@@ -16,8 +16,7 @@ export default defineConfig({
       manifest: {
         name: "Alibaba Hotels PWA",
         short_name: "PWA",
-        description:
-          "Alibaba Hotels Progressive Web App built with Vite and React",
+        description: "Alibaba Hotels Progressive Web App built with Vite and React",
         theme_color: "#ffffff",
         icons: [
           {
@@ -38,9 +37,8 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
+    // you might want to disable it, if you don't have tests that rely on CSS
+    // since parsing CSS is slow
     css: true,
-  },
-  ssr: {
-    noExternal: ["react-router-dom"],
-  },
+  }
 });
