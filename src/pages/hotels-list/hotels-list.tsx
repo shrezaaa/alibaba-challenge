@@ -5,6 +5,7 @@ import { faSync } from "@fortawesome/free-solid-svg-icons";
 import HotelsErrorBoundary from "./error-boundry";
 import { Hotel } from "../../types/hotel.model";
 import useFetchHotelsList from "../../hooks/use-fetch-hotels-list";
+import { Location } from "../../types/location.model";
 
 const Map = lazy(() => import("../../components/map/map"));
 
@@ -62,7 +63,7 @@ const HotelsList: React.FC = () => {
     navigate(`/hotels/${hotelId}`);
   };
 
-  const hotelLocations = filteredHotels.map((hotel) => ({
+  const hotelLocations: Location[] = filteredHotels.map((hotel) => ({
     id: hotel.id,
     name: hotel.name,
     lat: hotel.location.lat,
